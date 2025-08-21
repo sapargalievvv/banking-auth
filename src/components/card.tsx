@@ -1,7 +1,7 @@
 import { AspectRatio, Heading, HStack, Text, VStack } from 'native-base';
 
-import VisaSVG from '../assets/svgs/visa.svg';
-import MastercardSVG from '../assets/svgs/mastercard.svg';
+// import VisaSVG from '../assets/svgs/visa.svg';
+// import MastercardSVG from '../assets/svgs/mastercard.svg';
 import { CardModel } from '../models/card-model';
 
 type Props = CardModel;
@@ -25,9 +25,9 @@ export const Card = ({ brand, color, expiry, name, number, type }: Props) => {
 
   const renderBrand = () => {
     if (brand === 'visa') {
-      return <VisaSVG width={50} height={30} />;
+      return <Text>Visa</Text>
     }
-    return <MastercardSVG width={40} height={30} />;
+    return <Text>Mastercard</Text>
   };
 
   return (
