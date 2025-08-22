@@ -1,17 +1,18 @@
 import {
   BottomTabBarProps,
   createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
-import { useTheme } from 'native-base';
-import { useCallback } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+} from "@react-navigation/bottom-tabs";
+import { useTheme } from "native-base";
+import { useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useStickyScrollContext } from '../../contexts/sticky-scroll-context';
-import { Cards } from '../../screens/cards';
-import { Home } from '../../screens/home';
-import { BottomTabsRoutes } from '../routes/bottom-tabs-routes';
+import { useStickyScrollContext } from "../../contexts/sticky-scroll-context";
+import { Cards } from "../../screens/cards";
+import { Home } from "../../screens/home";
+import { BottomTabsRoutes } from "../routes/bottom-tabs-routes";
 
-import { TabBar } from './components/tab-bar';
+import { TabBar } from "./components/tab-bar";
+import SettingsScreen from "../../screens/settings/settings";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,9 +43,9 @@ export const TabNavigator = () => {
       <Tab.Screen
         name={BottomTabsRoutes.Home}
         component={Home}
-        options={{ title: 'Home' }}
+        options={{ title: "Home" }}
       />
-      <Tab.Screen name={BottomTabsRoutes.Settings} component={Home} />
+      <Tab.Screen name={BottomTabsRoutes.Settings} component={SettingsScreen} />
     </Tab.Navigator>
   );
 };

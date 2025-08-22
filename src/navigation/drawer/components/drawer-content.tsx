@@ -14,6 +14,7 @@ import Animated, {
 
 import { useAppContext } from "../../../contexts/app-context";
 import { authClient } from "../../../lib/auth-client";
+import { Alert } from "react-native";
 
 const AnimatedDrawerContentScrollView = Animated.createAnimatedComponent(
   DrawerContentScrollView
@@ -25,8 +26,18 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
   const drawerStatus = useDrawerStatus();
   const rotate = useSharedValue("25deg");
   const marginVertical = useSharedValue(0);
+  const { data } = authClient.useSession();
 
-  const signOut = () => authClient.signOut();
+  const handleLogout = () => {
+    Alert.alert("Выход", "Вы уверены, что хотите выйти?", [
+      { text: "Отмена", style: "cancel" },
+      {
+        text: "Выйти",
+        style: "destructive",
+        onPress: () => authClient.signOut(),
+      },
+    ]);
+  };
 
   useLayoutEffect(() => {
     if (drawerStatus === "open") {
@@ -62,13 +73,13 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           resizeMode="contain"
           borderRadius={100}
           source={{
-            uri: "https://media-exp1.licdn.com/dms/image/C4D03AQGqpJwb-P7cyQ/profile-displayphoto-shrink_800_800/0/1596593420728?e=1665014400&v=beta&t=PW-MjxdNTzbnoIBw7Uz4MzCVL0a1MgYebuCNim3XP-8",
+            uri: "https://cdn-icons-png.flaticon.com/512/17561/17561717.png",
           }}
           alt="User image"
           mb={3}
         />
         <Heading fontSize="md" color="white">
-          Marcelo D. Junior
+          {data?.user.name}
         </Heading>
       </VStack>
       <DrawerItemList {...props} />
@@ -84,7 +95,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         />
       </HStack>
       <HStack alignItems="center" p={3} mt={8}>
-        <Heading fontSize="sm" color="white" mr={4} onPress={signOut}>
+        <Heading fontSize="md" color="red.300" mr={4} onPress={handleLogout}>
           Sign Out
         </Heading>
       </HStack>
