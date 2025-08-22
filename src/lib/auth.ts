@@ -8,6 +8,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true, // Enable authentication using email and password.
   },
+  trustedOrigins: ["myapp:///sign-in"],
   socialProviders: {
     google: {
       prompt: "select_account",

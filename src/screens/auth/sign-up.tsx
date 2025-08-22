@@ -28,14 +28,14 @@ export default function SignUpScreen({ navigation }: any) {
         value={password}
         onChangeText={setPassword}
         placeholder="Password"
-        secureTextEntry
+        secureTextEntry={!__DEV__}
         className="w-full border rounded-lg px-4 py-2 mb-3"
       />
       <TextInput
         value={password}
         onChangeText={setPassword}
         placeholder="Confirm Password"
-        secureTextEntry
+        secureTextEntry={!__DEV__}
         className="w-full border rounded-lg px-4 py-2 mb-3"
       />
       <TouchableOpacity

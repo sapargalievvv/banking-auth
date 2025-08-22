@@ -17,6 +17,7 @@ export default function SignInScreen({ navigation }: any) {
     try {
       await authClient.signIn.social({
         provider: "google",
+        callbackURL: "/sign-in",
       });
     } catch (er) {
       console.error(er);
