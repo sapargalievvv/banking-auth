@@ -7,6 +7,7 @@ import { StickyScrollProvider } from './contexts/sticky-scroll-context';
 import { Navigator } from './navigation';
 import { DARK_THEME } from './themes/dark';
 import { LIGHT_THEME } from './themes/light';
+import "./global.css"
 
 const config = {
   dependencies: {

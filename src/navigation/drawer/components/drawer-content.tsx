@@ -3,16 +3,17 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
   useDrawerStatus,
-} from '@react-navigation/drawer';
-import { Heading, HStack, Image, Switch, useTheme, VStack } from 'native-base';
-import { useLayoutEffect } from 'react';
+} from "@react-navigation/drawer";
+import { Heading, HStack, Image, Switch, useTheme, VStack } from "native-base";
+import { useLayoutEffect } from "react";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
-import { useAppContext } from '../../../contexts/app-context';
+import { useAppContext } from "../../../contexts/app-context";
+import { authClient } from "../../../lib/auth-client";
 
 const AnimatedDrawerContentScrollView = Animated.createAnimatedComponent(
   DrawerContentScrollView
@@ -22,15 +23,17 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
   const { theme, setTheme } = useAppContext();
   const { colors } = useTheme();
   const drawerStatus = useDrawerStatus();
-  const rotate = useSharedValue('25deg');
+  const rotate = useSharedValue("25deg");
   const marginVertical = useSharedValue(0);
 
+  const signOut = () => authClient.signOut();
+
   useLayoutEffect(() => {
-    if (drawerStatus === 'open') {
-      rotate.value = '0';
+    if (drawerStatus === "open") {
+      rotate.value = "0";
       marginVertical.value = 32;
     } else {
-      rotate.value = '25deg';
+      rotate.value = "25deg";
       marginVertical.value = 0;
     }
   }, [drawerStatus, rotate, marginVertical]);
@@ -59,7 +62,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           resizeMode="contain"
           borderRadius={100}
           source={{
-            uri: 'https://media-exp1.licdn.com/dms/image/C4D03AQGqpJwb-P7cyQ/profile-displayphoto-shrink_800_800/0/1596593420728?e=1665014400&v=beta&t=PW-MjxdNTzbnoIBw7Uz4MzCVL0a1MgYebuCNim3XP-8',
+            uri: "https://media-exp1.licdn.com/dms/image/C4D03AQGqpJwb-P7cyQ/profile-displayphoto-shrink_800_800/0/1596593420728?e=1665014400&v=beta&t=PW-MjxdNTzbnoIBw7Uz4MzCVL0a1MgYebuCNim3XP-8",
           }}
           alt="User image"
           mb={3}
@@ -74,11 +77,16 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           Dark Mode
         </Heading>
         <Switch
-          isChecked={theme === 'dark'}
-          onToggle={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          isChecked={theme === "dark"}
+          onToggle={() => setTheme(theme === "dark" ? "light" : "dark")}
           offTrackColor={colors.gray[300]}
           onTrackColor={colors.primary[500]}
         />
+      </HStack>
+      <HStack alignItems="center" p={3} mt={8}>
+        <Heading fontSize="sm" color="white" mr={4} onPress={signOut}>
+          Sign Out
+        </Heading>
       </HStack>
     </AnimatedDrawerContentScrollView>
   );
