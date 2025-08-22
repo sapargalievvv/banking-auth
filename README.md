@@ -1,5 +1,4 @@
-git clone 
-
+npm install
 npx expo install 
 
 create file .env with all variables that I sent
